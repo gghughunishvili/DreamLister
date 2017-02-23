@@ -26,25 +26,9 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         storePicker.delegate = self
         storePicker.dataSource = self
         
-//        let store1 = Store(context: context)
-//        store1.name = "Jason Inc"
-//        
-//        let store2 = Store(context: context)
-//        store2.name = "Buy If you can"
-//        
-//        let store3 = Store(context: context)
-//        store3.name = "Best Buy"
-//        
-//        let store4 = Store(context: context)
-//        store4.name = "No Mercy"
-//        
-//        let store5 = Store(context: context)
-//        store5.name = "Why Not?!"
-//        
-//        let store6 = Store(context: context)
-//        store6.name = "True Value"
-        
         ad.saveContext()
+        
+        //emptyStores()
         
         getStores()
         
@@ -93,10 +77,45 @@ class ItemDetailsVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         
         do {
             self.stores = try context.fetch(fetchRequest)
+            if self.stores.count == 0 {
+                generateMockStoreData()
+                getStores()
+            }
             self.storePicker.reloadAllComponents()
         } catch {
             // Handle the error
         }
+    }
+    
+    func generateMockStoreData() {
+        let store1 = Store(context: context)
+        store1.name = "Jason Inc"
+        
+        let store2 = Store(context: context)
+        store2.name = "Buy If you can"
+        
+        let store3 = Store(context: context)
+        store3.name = "Best Buy"
+        
+        let store4 = Store(context: context)
+        store4.name = "No Mercy"
+        
+        let store5 = Store(context: context)
+        store5.name = "Why Not?!"
+                
+        let store6 = Store(context: context)
+        store6.name = "True Value"
+    }
+    
+    func emptyStores() {
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Store")
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+        do {
+            _ = try context.execute(request)
+        } catch {
+            // Catch the error
+        }
+        
     }
     
     

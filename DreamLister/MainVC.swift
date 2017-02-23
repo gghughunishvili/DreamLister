@@ -22,8 +22,10 @@ class MainVC: UIViewController,UITableViewDelegate, UITableViewDataSource, NSFet
         tableView.delegate = self
         tableView.dataSource = self
         
-        //generateTestData()
+        checkForMockDataAndIfNotExistsThenCreate()
+        
         attemptFetch()
+        tableView.allowsSelection = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,7 +71,7 @@ class MainVC: UIViewController,UITableViewDelegate, UITableViewDataSource, NSFet
         
         fetchRequest.sortDescriptors = [dateSort]
         let controller = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        
+
         controller.delegate = self
         self.controller = controller
         
@@ -140,6 +142,20 @@ class MainVC: UIViewController,UITableViewDelegate, UITableViewDataSource, NSFet
         item3.details = "Wohoo this is my dream. Actually not my dream but let's add some expensive stuff, lol"
         
         ad.saveContext()
+    }
+    
+    func checkForMockDataAndIfNotExistsThenCreate() {
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        
+        do {
+            let tmpItems = try context.fetch(fetchRequest)
+            if tmpItems.count == 0 {
+                generateTestData()
+            }
+        } catch {
+            // Handle the error
+        }
+
     }
 
 }
