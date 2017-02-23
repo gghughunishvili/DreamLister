@@ -76,14 +76,10 @@ class MainVC: UIViewController,UITableViewDelegate, UITableViewDataSource, NSFet
         self.controller = controller
         
         do {
-            
             try controller.performFetch()
-            
         } catch {
-            
             let error = error as NSError
             print("\(error)")
-            
         }
     }
     
