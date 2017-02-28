@@ -39,7 +39,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="150" id="E6F-FV-JFc" customClass="ItemCell" customModule="DreamLister" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="150" id="E6F-FV-JFc" customClass="ItemCell" customModule="DreamLister" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="150"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E6F-FV-JFc" id="dwU-a8-5X3">
@@ -107,7 +107,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="NO"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="details" destination="pag-Yb-M8I" id="cvh-cG-eb6"/>
@@ -117,9 +117,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="materialDesign" value="YES"/>
-                                </userDefinedRuntimeAttributes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -144,7 +141,7 @@
                     <connections>
                         <outlet property="segment" destination="wq2-2L-uqc" id="Qiw-sl-Wgj"/>
                         <outlet property="tableView" destination="6Np-ku-gnB" id="ts0-ck-KZh"/>
-                        <segue destination="h6u-TP-if1" kind="show" identifier=" ItemDetailsVC" id="Op2-sR-6AM"/>
+                        <segue destination="h6u-TP-if1" kind="show" identifier="ItemDetailsVC" id="5Rz-5r-1hc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -310,6 +307,6 @@
         <image name="shelby-gt500" width="745" height="392"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2f7-iZ-x6k"/>
+        <segue reference="5Rz-5r-1hc"/>
     </inferredMetricsTieBreakers>
 </document>

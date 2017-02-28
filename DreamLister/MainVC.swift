@@ -25,7 +25,7 @@ class MainVC: UIViewController,UITableViewDelegate, UITableViewDataSource, NSFet
         checkForMockDataAndIfNotExistsThenCreate()
         
         attemptFetch()
-        tableView.allowsSelection = false
+        // tableView.allowsSelection = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,6 +65,23 @@ class MainVC: UIViewController,UITableViewDelegate, UITableViewDataSource, NSFet
         return 0
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let objs = controller.fetchedObjects, objs.count > 0 {
+            let item = objs[indexPath.row]
+            performSegue(withIdentifier: "ItemDetailsVC", sender: item)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ItemDetailsVC" {
+            if let destination = segue.destination as? ItemDetailsVC {
+                if let item = sender as? Item {
+                    destination.itemToEdit = item
+                }
+            }
+        }
+    }
+    
     func attemptFetch() {
         let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
         let dateSort = NSSortDescriptor(key: "created_at", ascending: false)
@@ -92,7 +109,7 @@ class MainVC: UIViewController,UITableViewDelegate, UITableViewDataSource, NSFet
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch type {
+        switch(type) {
         case.insert:
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .fade)
@@ -106,13 +123,12 @@ class MainVC: UIViewController,UITableViewDelegate, UITableViewDataSource, NSFet
         case.update:
             if let indexPath = indexPath {
                 let cell = tableView.cellForRow(at: indexPath) as! ItemCell
-                // Update the cell data
                 configureCell(cell: cell, indexPath: indexPath as NSIndexPath)
             }
             break
         case.move:
             if let indexPath = indexPath {
-                 tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.deleteRows(at: [indexPath], with: .fade)
             }
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .fade)
